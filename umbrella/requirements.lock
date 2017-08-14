@@ -1,0 +1,15 @@
+dependencies:
+- name: helpers
+  repository: file://../helpers
+  version: 0.1.0
+- name: subchart1
+  repository: file://../subchart1
+  version: 0.1.0
+- name: subchart2
+  repository: file://../subchart2
+  version: 0.1.0
+- name: mariadb
+  repository: https://kubernetes-charts.storage.googleapis.com
+  version: 0.7.0
+digest: sha256:092cedbd8a631d23198a7928d84bdd4342c7cb19003506424bde991874248e6f
+generated: 2017-08-14T12:52:53.49032892-07:00

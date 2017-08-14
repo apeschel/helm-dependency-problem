@@ -1,0 +1,43 @@
+This repository exists to demonstrate a flaw with Helm's recursive dependency resolution.
+
+```
+umbrella
+├── helpers
+├── mariadb (sampledb)
+├── subchart1
+│   ├── helpers
+│   └── mariadb (sampledb)
+└── subchart2
+    ├── helpers
+    └── mariadb (sampledb)
+```
+
+Both subchart1 and subchart2 work fine on their own. However, when they are
+both included with umbrella, a collision occurs.
+
+```
+$ helm dep build subchart1
+$ helm dep build subchart2
+$ helm dep build umbrella
+$ helm install --debug --dry-run ./umbrella |
+    grep Source |
+    sed 's!.*[ /]\([^/]*/templates/.*\.yaml\)$!\1!' |
+    sort |
+    uniq -c
+
+   3 sampledb/templates/configmap.yaml
+   3 sampledb/templates/deployment.yaml
+   3 sampledb/templates/pvc.yaml
+   3 sampledb/templates/secrets.yaml
+   3 sampledb/templates/svc.yaml
+   1 subchart1/templates/configmap.yaml
+   1 subchart2/templates/configmap.yaml
+
+```
+
+Trying to install this umbrella package will cause an error due to duplicated resources.
+
+```
+$ helm install --debug ./umbrella
+Error: release quoting-possum failed: secrets "quoting-possum-sampledb" already exists
+```

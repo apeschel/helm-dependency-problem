@@ -1,0 +1,14 @@
+dependencies:
+  - name: helpers
+    repository: "file://../helpers"
+    version: "~> 0.1.X"
+  - name: subchart1
+    repository: "file://../subchart1"
+    version: "~> 0.1.X"
+  - name: subchart2
+    repository: "file://../subchart2"
+    version: "~> 0.1.X"
+  - name: mariadb
+    repository: https://kubernetes-charts.storage.googleapis.com
+    version: 0.7.0
+    alias: sampledb

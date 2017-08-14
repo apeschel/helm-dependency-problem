@@ -5,6 +5,10 @@ Currently, Helm will generate a set of resources for every dependency listed in
 the chart tree. Unfortunately, this causes breakage when the same dependency is
 listed multiple times.
 
+As a workaround, one can only have dependencies listed in the umbrella and
+leave them out of the subcharts, but this removes the ability to develop and
+test the subcharts as separate entities from the umbrella.
+
 It would make more sense for Helm to identify the overlapping dependencies and
 only generate a single set of resources for all the charts to use.
 

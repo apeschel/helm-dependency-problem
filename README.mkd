@@ -1,3 +1,4 @@
+# Overview
 This repository exists to demonstrate a flaw with Helm's recursive dependency
 management.
 
@@ -12,7 +13,11 @@ test the subcharts as separate entities from the umbrella.
 It would make more sense for Helm to identify the overlapping dependencies and
 only generate a single set of resources for all the charts to use.
 
-This directory contains charts with the following hierarchy
+# Example
+
+Imagine an application stack with two services that want to access the same
+database. If you place each service in its own chart and use an umbrella chart
+to combine them, you will end up with the following hierarchy:
 
 ```
 umbrella
@@ -27,7 +32,7 @@ umbrella
 ```
 
 Both subchart1 and subchart2 work fine on their own. However, when they are
-both included with umbrella, a collision occurs.
+both included with the umbrella chart, a collision occurs.
 
 ```
 $ helm dep build subchart1
@@ -49,7 +54,9 @@ $ helm install --debug --dry-run ./umbrella |
 
 ```
 
-Trying to install this umbrella package will cause an error due to duplicated resources.
+Trying to install this umbrella package will cause an error due to duplicated
+resources.
+
 
 ```
 $ helm install --debug ./umbrella

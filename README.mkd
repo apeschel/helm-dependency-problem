@@ -1,4 +1,14 @@
-This repository exists to demonstrate a flaw with Helm's recursive dependency resolution.
+This repository exists to demonstrate a flaw with Helm's recursive dependency
+resolution.
+
+Currently, Helm will generate a set of resources for every dependency listed in
+the chart tree. Unfortunately, this causes breakage when the same dependency is
+listed multiple times.
+
+It would make more sense for Helm to identify the overlapping dependencies and
+only generate a single set of resources for all the charts to use.
+
+This directory contains charts with the following hierarchy
 
 ```
 umbrella

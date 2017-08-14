@@ -1,5 +1,5 @@
 This repository exists to demonstrate a flaw with Helm's recursive dependency
-resolution.
+management.
 
 Currently, Helm will generate a set of resources for every dependency listed in
 the chart tree. Unfortunately, this causes breakage when the same dependency is
